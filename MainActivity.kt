@@ -364,7 +364,7 @@ fun CapriAvatar(speaking: Boolean, listening: Boolean, thinking: Boolean) {
         val cx = size.width / 2f
         val cy = size.height / 2f + bob
         fun p(x: Float, y: Float) = Offset(cx + x * s, cy + y * s)
-        fun poly(fill: Color, vararg pts: Offset) {
+        fun poly(fill: Color, pts: List<Offset>) {
             val path = Path().apply {
                 moveTo(pts[0].x, pts[0].y)
                 for (i in 1 until pts.size) lineTo(pts[i].x, pts[i].y)
@@ -380,21 +380,21 @@ fun CapriAvatar(speaking: Boolean, listening: Boolean, thinking: Boolean) {
         drawCircle(ShardGreen.copy(alpha = glow), radius = 34f * s, center = p(0f, -27f))
 
         // Red shards
-        poly(ShardRed, p(-70f, -5f), p(-35f, -48f), p(-12f, -22f), p(-30f, 10f))
-        poly(ShardRed, p(70f, -40f), p(30f, -52f), p(12f, -20f), p(40f, 15f), p(68f, 25f))
-        poly(ShardRed, p(-10f, 15f), p(15f, 10f), p(30f, 55f), p(5f, 60f))
+        poly(ShardRed, listOf(p(-70f, -5f), p(-35f, -48f), p(-12f, -22f), p(-30f, 10f)))
+        poly(ShardRed, listOf(p(70f, -40f), p(30f, -52f), p(12f, -20f), p(40f, 15f), p(68f, 25f)))
+        poly(ShardRed, listOf(p(-10f, 15f), p(15f, 10f), p(30f, 55f), p(5f, 60f)))
 
         // Black body and green panels
-        poly(ShardBlack, p(-30f, -10f), p(0f, -45f), p(30f, -10f), p(20f, 42f), p(-20f, 42f))
-        poly(ShardGreen, p(-32f, 5f), p(-12f, -5f), p(-8f, 18f), p(-28f, 26f))
-        poly(ShardGreen, p(14f, 20f), p(34f, 14f), p(30f, 38f), p(10f, 40f))
+        poly(ShardBlack, listOf(p(-30f, -10f), p(0f, -45f), p(30f, -10f), p(20f, 42f), p(-20f, 42f)))
+        poly(ShardGreen, listOf(p(-32f, 5f), p(-12f, -5f), p(-8f, 18f), p(-28f, 26f)))
+        poly(ShardGreen, listOf(p(14f, 20f), p(34f, 14f), p(30f, 38f), p(10f, 40f)))
 
         // Head
-        poly(ShardBlack, p(-24f, -24f), p(0f, -52f), p(24f, -24f), p(0f, -4f))
+        poly(ShardBlack, listOf(p(-24f, -24f), p(0f, -52f), p(24f, -24f), p(0f, -4f)))
 
         // Diamond eye (squashes when she blinks)
         val eh = 13f * blink
-        poly(ShardGreen, p(0f, -27f - eh), p(14f, -27f), p(0f, -27f + eh), p(-14f, -27f))
+        poly(ShardGreen, listOf(p(0f, -27f - eh), p(14f, -27f), p(0f, -27f + eh), p(-14f, -27f)))
         if (blink > 0.5f) {
             val ringColor = when {
                 listening -> NeonCyan
